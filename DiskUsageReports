@@ -1,0 +1,12 @@
+## Listing files ordered by size
+
+The starting point is the cmdlet Get-ChildItem 
+that allows you to list files and directories. 
+Get-ChildItem alone can't find the largest files. Thus, you have to filter its output to extract the wanted properties.
+
+gci -r| sort -descending -property length | select -first 10 name, length
+
+## Displaying file sizes in GB
+
+gci -r|sort -descending -property length | 
+select -first 10 name, @{Name="Gigabytes";Expression={[Math]::round($_.length / 1GB, 2)}}
